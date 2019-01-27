@@ -1,5 +1,6 @@
 package com.example.admin.myapplication;
 
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity
     TextView username,user_email;
     Double lat,lng;
     private GoogleMap mMap;
+    FirebaseAuth.AuthStateListener authListener;
 
 
     @Override
@@ -65,6 +68,17 @@ public class MainActivity extends AppCompatActivity
 
         auth = FirebaseAuth.getInstance();
         String dm=auth.getCurrentUser().getEmail();
+        authListener= new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged (@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if ( user == null )
+                    {
+                        startActivity( new Intent( MainActivity.this, login_registration.class ) );
+                        finish();
+                    }
+            }
+        };
 
 
 
@@ -74,35 +88,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                LocationListener locationListener=new LocationListener() {
-                    @Override
-                    public void onLocationChanged(Location location) {
-                        if (location != null) {
-                            Log.d(TAG,String.format("%f, %f", location.getLatitude(), location.getLongitude()));
-                            Marker marker = mMap.addMarker(new MarkerOptions()
-                                    .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                                    .title("San Francisco")
-                                    .snippet("Population: 776733"));
-                        } else {
-                            Log.d(TAG,"Location is null");
-                        }
-                    }
 
-                    @Override
-                    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                    }
-
-                    @Override
-                    public void onProviderEnabled(String provider) {
-
-                    }
-
-                    @Override
-                    public void onProviderDisabled(String provider) {
-
-                    }
-                };
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -192,7 +178,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            signOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -262,5 +248,10 @@ public class MainActivity extends AppCompatActivity
         }
         mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 300));
 
+    }
+    private void signOut()
+    {
+        auth.signOut();
+        startActivity( new Intent( MainActivity.this, login_registration.class ) );
     }
 }
