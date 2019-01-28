@@ -53,15 +53,20 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.okhttp.Route;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import Modules.DirectionFinder;
+import Modules.DirectionFinderListener;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback {
+        implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback, DirectionFinderListener {
     private static final String TAG ="" ;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth auth;
+    LatLng location;
     private HashMap<String, Marker> mMarkers = new HashMap<>();
     TextView username,user_email;
     Double lat,lng;
@@ -109,10 +114,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                sendRequest();
             }
         });
 
@@ -264,7 +266,7 @@ public class MainActivity extends AppCompatActivity
         HashMap<String, Object> value = (HashMap<String, Object>) dataSnapshot.getValue();
         lat = Double.parseDouble(value.get("latitude").toString());
         lng = Double.parseDouble(value.get("longitude").toString());
-        LatLng location = new LatLng(lat, lng);
+        location = new LatLng(lat, lng);
         if (!mMarkers.containsKey(key)) {
             mMarkers.put(key, mMap.addMarker(new MarkerOptions().title(key).position(location)));
         } else {
@@ -345,6 +347,78 @@ public class MainActivity extends AppCompatActivity
                     mMap.addCircle(circleOptions);
                 }
             };
+
+
+    private void sendRequest() {
+        String origin ="pune";
+                //etOrigin.getText().toString();
+
+        String destination ="mumbai";
+                //etDestination.getText().toString();
+
+        try {
+            new DirectionFinder(this, origin, destination).execute();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void onDirectionFinderStart() {
+        progressDialog = ProgressDialog.show(this, "Please wait.",
+                "Finding direction..!", true);
+
+        if (originMarkers != null) {
+            for (Marker marker : originMarkers) {
+                marker.remove();
+            }
+        }
+
+        if (destinationMarkers != null) {
+            for (Marker marker : destinationMarkers) {
+                marker.remove();
+            }
+        }
+
+        if (polylinePaths != null) {
+            for (Polyline polyline:polylinePaths ) {
+                polyline.remove();
+            }
+        }
+    }
+
+    @Override
+    public void onDirectionFinderSuccess(List<Modules.Route> routes) {
+        progressDialog.dismiss();
+        polylinePaths = new ArrayList<>();
+        originMarkers = new ArrayList<>();
+        destinationMarkers = new ArrayList<>();
+
+        for (Modules.Route route : routes) {
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.startLocation, 16));
+            ((TextView) findViewById(R.id.tvDuration)).setText(route.duration.text);
+            ((TextView) findViewById(R.id.tvDistance)).setText(route.distance.text);
+
+            originMarkers.add(mMap.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.start_blue))
+                    .title(route.startAddress)
+                    .position(route.startLocation)));
+            destinationMarkers.add(mMap.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.end_green))
+                    .title(route.endAddress)
+                    .position(route.endLocation)));
+
+            PolylineOptions polylineOptions = new PolylineOptions().
+                    geodesic(true).
+                    color(Color.BLUE).
+                    width(10);
+
+            for (int i = 0; i < route.points.size(); i++)
+                polylineOptions.add(route.points.get(i));
+
+            polylinePaths.add(mMap.addPolyline(polylineOptions));
+        }
+    }
+
 
 
     }
