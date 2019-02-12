@@ -192,6 +192,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
+            startActivity(new Intent(MainActivity.this,MapsActivity.class));
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
@@ -225,8 +226,6 @@ public class MainActivity extends AppCompatActivity
         subscribeToUpdates();
     }
     private void subscribeToUpdates() {
-
-
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("location");
         ref.addChildEventListener(new ChildEventListener() {
             @Override
@@ -350,11 +349,11 @@ public class MainActivity extends AppCompatActivity
 
 
     private void sendRequest() {
-        String origin ="pune";
-                //etOrigin.getText().toString();
+        etOrigin=findViewById(R.id.etOrigin);
+        etDestination=findViewById(R.id.etDestination);
+        String origin =etOrigin.getText().toString();
 
-        String destination ="mumbai";
-                //etDestination.getText().toString();
+        String destination =etDestination.getText().toString();
 
         try {
             new DirectionFinder(this, origin, destination).execute();
