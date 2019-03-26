@@ -19,24 +19,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
 
-    >
 
-    <TextView
-        android:layout_marginLeft="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0 min"
-        android:layout_marginStart="100dp"
-        android:id="@+id/tvDuration" />
-    <TextView
-        android:layout_marginLeft="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0 km"
-        android:id="@+id/tvDistance" />
-</RelativeLayout>
 </android.support.constraint.ConstraintLayout>

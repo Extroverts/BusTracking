@@ -106,16 +106,15 @@ public class Register extends AppCompatActivity {
            }
            @Override
            public void onNothingSelected(AdapterView<?> parent) {
-
+               //when nothing selected show message here......
            }
        });
 
 
        // on register Button Click
-        register.setOnClickListener(new View.OnClickListener() {
+        register.setOnClickListener( new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onClick (View v) {
                 try
                     {
                         otp= generateOTP();
@@ -124,10 +123,9 @@ public class Register extends AppCompatActivity {
                         Toast.makeText( getApplicationContext(),"Check Your Balance & Internet Connection",Toast.LENGTH_SHORT ).show();
                         e.printStackTrace();
                     }
-                Log.d( TAG,String.valueOf( otp ) );
+                Log.d( TAG, String.valueOf( otp ) );
                 SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(contactss.getText().toString(), null, "Bus Tracking System One Time Password(OTP) is"+otp+"Please do not share this with Anyone", null, null);
-
+                smsManager.sendTextMessage( contactss.getText().toString(), null, "Bus Tracking System One Time Password(OTP) is" + otp + "Please do not share this with Anyone.", null, null );
                 final AlertDialog.Builder alert=new AlertDialog.Builder(Register.this);
                 LayoutInflater layoutInflater=Register.this.getLayoutInflater();
                 final View dialog=layoutInflater.inflate(R.layout.otp_validation,null);
@@ -138,7 +136,6 @@ public class Register extends AppCompatActivity {
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         if (forgot_pass.getText().toString().equals( String.valueOf( otp ) )) {
                            register();
                         } else {
@@ -148,10 +145,8 @@ public class Register extends AppCompatActivity {
 
 
                 });
-
                 AlertDialog aa=alert.create();
                 aa.show();
-
             }
         });
 
