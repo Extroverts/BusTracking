@@ -51,6 +51,21 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".Payment.PaymentActivity"
+            android:label="Fees" />
+        <activity
+            android:name=".Splash_Screen"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".Fees"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".SOS.PanicButton"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".LiveFeedback"
+            android:label="@string/title_activity_maps" />
         <activity android:name=".Live_feedback"></activity>
     </application>
 

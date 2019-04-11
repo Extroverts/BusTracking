@@ -39,7 +39,7 @@ public class Profile extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        user_name.setText(document.getData().get("name").toString());
+                        user_name.setText(document.get("name").toString());
                         stop_name.setText(document.getData().get("stop_name").toString());
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                     } else {
