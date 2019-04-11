@@ -6,26 +6,39 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/directions"
-            android:icon="@drawable/ic_menu_camera"
+
             android:title="Directions" />
         <item
             android:id="@+id/panic"
-            android:icon="@drawable/ic_menu_gallery"
+
             android:title="SOS PAnic Button" />
         <item
             android:id="@+id/payment"
-            android:icon="@drawable/ic_menu_slideshow"
+
             android:title="Payment" />
         <item
             android:id="@+id/fee_Status"
-            android:icon="@drawable/ic_menu_manage"
+
             android:title="Fees" />
         <item
             android:id="@+id/profile"
-            android:icon="@drawable/ic_menu_manage"
+
             android:title="Profile" />
     </group>
 
+    <item android:title="Feedback">
+        <menu>
+            <item android:title="Live Feedback"
+                android:id="@+id/live_feedback"
+                ></item>
+            <item android:id="@+id/feedback"
+                android:title="Feedback"
+                >
+
+            </item>
+        </menu>
+
+    </item>
     <item android:title="Communicate">
         <menu>
             <item

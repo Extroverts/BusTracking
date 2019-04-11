@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class login_registration extends AppCompatActivity {
     TextInputEditText user_email,user_password;
     String useremail,userpassword;
     private ProgressBar progressBar;
+    private ProgressDialog mProgress;
 
     FirebaseAuth auth;
     @Override
@@ -74,7 +76,9 @@ public class login_registration extends AppCompatActivity {
                 }
                 else{
                     login();
+                    finish();
                     }
+
             }
         });
 
@@ -82,6 +86,7 @@ public class login_registration extends AppCompatActivity {
             @Override
             public void onClick (View v) {
                forgot();
+
             }
         } );
     }
@@ -93,7 +98,13 @@ public class login_registration extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    progressBar.setVisibility(View.VISIBLE);
                     startActivity( new Intent( login_registration.this,MainActivity.class ) );
+                    Toast.makeText(getApplicationContext(),"Login Success",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"Login failed",Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
             }
         });

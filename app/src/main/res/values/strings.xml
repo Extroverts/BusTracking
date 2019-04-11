@@ -8,4 +8,14 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_maps">Map</string>
+    <string name="geofence_transition_notification_text">notificate sadjfh</string>
+    <string name="geofence_transition_entered">jhgajhsdf</string>
+    <string name="geofence_transition_exited">asdfksdkj</string>
+    <string name="unknown_geofence_transition">ajshdfsdjfas</string>
+    <string name="geofence_transition_invalid_type">alkshdf</string>
+    <string name="unknown_geofence_error">unknown error</string>
+    <string name="geofence_not_available">geo fence not available</string>
+    <string name="geofence_too_many_geofences">too many geo fences</string>
+    <string name="geofence_too_many_pending_intents">to many pending iuntent</string>
+    <string name="feofencing">https://github.com/googlesamples/android-play-location/blob/master/Geofencing/app/src/main/java/com/google/android/gms/location/sample/geofencing/MainActivity.java</string>
 </resources>

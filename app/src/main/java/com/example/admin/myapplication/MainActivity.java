@@ -69,6 +69,8 @@ import Modules.DirectionFinderListener;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
+
+
     private static final String TAG ="" ;
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
