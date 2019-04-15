@@ -2,6 +2,7 @@ package com.example.admin.myapplication.GeoFencing;
 
 
 
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -52,6 +53,7 @@ public class GeofenceTransitionsJobIntentService extends JobIntentService {
      * @param intent sent by Location Services. This Intent is provided to Location
      *               Services (inside a PendingIntent) when addGeofences() is called.
      */
+    @SuppressLint("StringFormatInvalid")
     @Override
     protected void onHandleWork(Intent intent) {
         GeofencingEvent geofencingEvent = GeofencingEvent.fromIntent(intent);

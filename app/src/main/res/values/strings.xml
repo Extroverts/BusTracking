@@ -18,4 +18,10 @@
     <string name="geofence_too_many_geofences">too many geo fences</string>
     <string name="geofence_too_many_pending_intents">to many pending iuntent</string>
     <string name="feofencing">https://github.com/googlesamples/android-play-location/blob/master/Geofencing/app/src/main/java/com/google/android/gms/location/sample/geofencing/MainActivity.java</string>
+    <string name="insufficient_permissions">Permissions are not granted</string>
+    <string name="geofences_added">geo fenceAdded</string>
+    <string name="geofences_removed">Geo Fence removed</string>
+    <string name="permission_rationale" />
+    <string name="permission_denied_explanation">permissoions are denied</string>
+    <string name="settings">settingsd</string>
 </resources>
